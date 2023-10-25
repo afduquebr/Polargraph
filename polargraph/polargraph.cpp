@@ -1,6 +1,8 @@
+#include <cmath>
 #include "Arduino.h"
 #include "AFMotor.h"
 #include "polargraph.h"
+
 
 Pointer::Pointer(float a, float b, State c, int steps){
   position.x = a;
@@ -16,21 +18,51 @@ void Pointer::speed(int v){
 }
 
 void Pointer::initPosition(coordenates desired position){
+  if ( (distance + position.x < - (width / 2)) && ((width / 2) < distance + position.x) && (distance + position.y < 0) && (height < distance + position.y)) {
+    Serial.println(" FATAL ERROR: Pointer position outside of Canvas")
+  } else {
+    if () {
 
+    } else {
+      
+    }
+  }
 }
 
-void Pointer::moveInX(){
-
+void Pointer::moveInX(float distance, State direction){
+  if ( (distance + position.x < - (width / 2)) && ((width / 2) < distance + position.x) ) {
+    Serial.println(" FATAL ERROR: Pointer position outside of Canvas")
+  } else {
+    if (direction == RIGHT) {
+      motors.m1.step(1, FORWARD, SINGLE);
+      motors.m2.step(1, BACKWARD, SINGLE);
+    } else if (direction == LEFT) {
+      motors.m1.step(1, BACKWARD, SINGLE);
+      motors.m2.step(1, FORWARD, SINGLE);
+    }
+    position.x += 2 * resolution * ( - 2  * signbit(distance) + 1)
+  }
 }
 
-void Pointer::moveInY(){
-
+void Pointer::moveInY(float distance, State direction){
+  if ( (distance + position.y < 0) && (height < distance + position.y) )  {
+    Serial.println(" FATAL ERROR: Pointer position outside of Canvas")
+  } else {
+    if (direction == UP) {
+      motors.m2.step(1, BACKWARD, SINGLE);
+      motors.m1.step(1, BACKWARD, SINGLE);
+    } else if (direction == DOWN) {
+      motors.m2.step(1, FORWARD, SINGLE);
+      motors.m1.step(1, FORWARD, SINGLE);
+    }
+    position.y += 2 * resolution * ( - 2  * signbit(distance) + 1)
+  }
 }
 
 void Pointer::restPosition(){
-
+  initPosition(0.0, 0.0);
 }
 
-void Pointer::getPosition(){
-
+coordenates Pointer::getPosition(){
+  return position;
 }
