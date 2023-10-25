@@ -30,8 +30,8 @@ class Pointer {
     Pointer(float x, float y, State c, int steps);
     void speed(int v);
     void initPosition(float x0, float y0);
-    void moveInX(float distance, State direction);
-    void moveInY(float distance, State direction);
+    void moveInX(float newX, State direction);
+    void moveInY(float newY, State direction);
     void restPosition();
     coordenates getPosition();
   private:
