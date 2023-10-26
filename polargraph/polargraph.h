@@ -8,9 +8,9 @@
 #include <AFMotor.h>
 
 static int steps = 200;
-static float width = 15.0;
-static float height = 30.0;
-static float radius = 0.5;
+static float width = 210.0;
+static float height = 297.0;
+static float radius = 5;
 
 static AF_Stepper motor1(steps, 1);
 static AF_Stepper motor2(steps, 2);
@@ -21,10 +21,8 @@ struct coordenates {
 };
 
 enum State {
-  UP,
-  DOWN,
-  RIGHT,
-  LEFT,
+  Y,
+  X,
   REST,
   INIT
 };
@@ -32,17 +30,15 @@ enum State {
 class Polargraph {
   public:
     coordenates position;
-    State state;
-    Polargraph(float x, float y, State c);
+    Polargraph(float x, float y);
     void speed(int v);
-    void initPosition(float x0, float y0);
-    void moveInX(float newX, State direction);
-    void moveInY(float newY, State direction);
-    void restPosition();
+    bool initPosition(float x0, float y0);
+    bool moveInX(float newX);
+    bool moveInY(float newY);
+    bool restPosition();
     coordenates getPosition();
   private:
     float resolution;
-
 };
 
 #endif
