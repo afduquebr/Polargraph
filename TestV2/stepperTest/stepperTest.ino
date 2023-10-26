@@ -16,7 +16,8 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
 // Connect a stepper motor with 200 steps per revolution (1.8 degree)
 // to motor port #2 (M3 and M4)
-  Adafruit_StepperMotor *myMotor = AFMS.getStepper(200, 0);
+  Adafruit_StepperMotor *myMotor = AFMS.getStepper(200, 1);
+  Adafruit_StepperMotor *myMotor2 = AFMS.getStepper(200, 1);
 
 
 void setup() {
@@ -31,23 +32,24 @@ void setup() {
   }
   Serial.println("Motor Shield found.");
 
-  myMotor->setSpeed(10);  // 10 rpm
+  myMotor1->setSpeed(2);  // 10 rpm
+  myMotor2->setSpeed(2);  // 10 rpm
 }
 
 void loop() {
   Serial.println("Single coil steps");
-  myMotor->step(100, FORWARD, SINGLE);
-  myMotor->step(100, BACKWARD, SINGLE);
+  myMotor1->step(5, FORWARD, SINGLE);
+  myMotor2->step(5, FORWARD, SINGLE);
 
-  Serial.println("Double coil steps");
-  myMotor->step(100, FORWARD, DOUBLE);
-  myMotor->step(100, BACKWARD, DOUBLE);
+  // Serial.println("Double coil steps");
+  // myMotor->step(100, FORWARD, DOUBLE);
+  // myMotor->step(100, BACKWARD, DOUBLE);
 
-  Serial.println("Interleave coil steps");
-  myMotor->step(100, FORWARD, INTERLEAVE);
-  myMotor->step(100, BACKWARD, INTERLEAVE);
+  // Serial.println("Interleave coil steps");
+  // myMotor->step(100, FORWARD, INTERLEAVE);
+  // myMotor->step(100, BACKWARD, INTERLEAVE);
 
-  Serial.println("Microstep steps");
-  myMotor->step(50, FORWARD, MICROSTEP);
-  myMotor->step(50, BACKWARD, MICROSTEP);
+  // Serial.println("Microstep steps");
+  // myMotor->step(50, FORWARD, MICROSTEP);
+  // myMotor->step(50, BACKWARD, MICROSTEP);
 }

@@ -1,31 +1,32 @@
-#include <cmath>
-#include <iostream>
-#include "Arduino.h"
-#include "AFMotor.h"
-#include "polargraph.h"
+#include "Polargraph.h"
+#include <Arduino.h>
 
 using namespace std;
 
-Pointer::Pointer(float a, float b, State c, int steps){
+
+Polargraph::Polargraph(float a, float b, State c){
   position.x = a;
   position.y = b;
   state = c;
-  motors.m1 = AF_Stepper(steps, 1);
-  motors.m2 = AF_Stepper(steps, 2);
+  resolution = sqrt(2) * radius * 1.8 * M_PI /100;
 }
 
-void Pointer::speed(int v){
-  motors.m1.setSpeed(v);
-  motors.m2.setSpeed(v);
+void Polargraph::speed(int v){
+  motor1.setSpeed(v);
+  motor2.setSpeed(v);
 }
 
-void Pointer::initPosition(float x0, float y0){
-  if ( (distance + position.x < - (width / 2)) && ((width / 2) < distance + position.x) && (distance + position.y < 0) && (height < distance + position.y)) {
+void Polargraph::initPosition(float x0, float y0){
+  if ( (x0 + position.x < - (width / 2)) && ((width / 2) < x0 + position.x) && (y0 + position.y < 0) && (height < y0 + position.y)) {
     Serial.println(" FATAL ERROR: Pointer position outside of Canvas");
   } else {
-    if (abs(y0 - position.y) < resolution) {
-      moveInY(y0, DOWN);
-    } else {
+    if (abs(y0 - position.y) > resolution) {
+      if (signbit(x0) == 0) {
+        moveInY(y0, UP);
+      } else {
+        moveInY(y0, DOWN);
+      }
+    } else if (abs(x0 - position.x) > resolution) {
       if (signbit(x0) == 0) {
         moveInX(x0, RIGHT);
       } else {
@@ -35,40 +36,40 @@ void Pointer::initPosition(float x0, float y0){
   }
 }
 
-void Pointer::moveInX(float newX, State direction){
+void Polargraph::moveInX(float newX, State direction){
   if ( (newX + position.x < - (width / 2)) && ((width / 2) < newX + position.x) ) {
     Serial.println(" FATAL ERROR: Pointer position outside of Canvas");
   } else {
     if (direction == RIGHT) {
-      motors.m1.step(1, FORWARD, SINGLE);
-      motors.m2.step(1, BACKWARD, SINGLE);
+      motor1.step(1, FORWARD, SINGLE);
+      motor2.step(1, BACKWARD, SINGLE);
     } else if (direction == LEFT) {
-      motors.m1.step(1, BACKWARD, SINGLE);
-      motors.m2.step(1, FORWARD, SINGLE);
+      motor1.step(1, BACKWARD, SINGLE);
+      motor2.step(1, FORWARD, SINGLE);
     }
-    position.x += 2 * resolution * ( - 2  * signbit(newX) + 1)
+    position.x += 2 * resolution * ( - 2  * signbit(newX) + 1);
   }
 }
 
-void Pointer::moveInY(float newY, State direction){
+void Polargraph::moveInY(float newY, State direction){
   if ( (newY + position.y < 0) && (height < newY + position.y) )  {
     Serial.println(" FATAL ERROR: Pointer position outside of Canvas");
   } else {
     if (direction == UP) {
-      motors.m2.step(1, BACKWARD, SINGLE);
-      motors.m1.step(1, BACKWARD, SINGLE);
+      motor2.step(1, BACKWARD, SINGLE);
+      motor1.step(1, BACKWARD, SINGLE);
     } else if (direction == DOWN) {
-      motors.m2.step(1, FORWARD, SINGLE);
-      motors.m1.step(1, FORWARD, SINGLE);
+      motor2.step(1, FORWARD, SINGLE);
+      motor1.step(1, FORWARD, SINGLE);
     }
     position.y += 2 * resolution * ( - 2  * signbit(newY) + 1);
   }
 }
 
-void Pointer::restPosition(){
+void Polargraph::restPosition(){
   initPosition(0.0, 0.0);
 }
 
-coordenates Pointer::getPosition(){
+coordenates Polargraph::getPosition(){
   return position;
 }
