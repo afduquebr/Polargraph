@@ -30,6 +30,7 @@ enum State {
 class Polargraph {
   public:
     coordenates position;
+    float resolution;
     Polargraph(float x, float y);
     void speed(int v);
     bool initPosition(float x0, float y0);
@@ -37,8 +38,8 @@ class Polargraph {
     bool moveInY(float newY);
     bool restPosition();
     coordenates getPosition();
-  private:
-    float resolution;
+  // private:
+  //   float resolution;
 };
 
 #endif
