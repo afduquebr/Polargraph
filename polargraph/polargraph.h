@@ -1,5 +1,5 @@
 // Polargraph library
-// Last Update: October 30th, 2023.
+// Last Update: November 8th, 2023.
 // Andrés Felipe Duque Bran
 
 /*
@@ -70,6 +70,7 @@ class Polargraph {
     bool initPosition(float x0, float y0); // Go to an initial point in the grid
     bool moveInX(float newX); // Move to a position in horizontal direction
     bool moveInY(float newY); // Move to a position in vertical direction
+    bool square(float x, float y, float d) // Do a square of size d
     bool restPosition(); // Go to default start position
     coordenates getPosition(); // Return current position in the grid
   private:

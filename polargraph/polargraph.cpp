@@ -1,5 +1,5 @@
 // Polargraph library
-// Last Update: October 30th, 2023.
+// Last Update: November 8th, 2023.
 // Andrés Felipe Duque Bran
 
 
@@ -8,7 +8,7 @@
 using namespace std;
 
 // Definition of the constructor
-Polargraph::Polargraph(float a, float b){
+Polargraph::Polargraph(float a, float b) {
   // Defining initial position of the pointer
   position.x = a;
   position.y = b;
@@ -17,7 +17,7 @@ Polargraph::Polargraph(float a, float b){
 }
 
 // Set speed for the displacement
-void Polargraph::speed(int v){
+void Polargraph::speed(int v) {
   // Set same speed for both engines
   // v is set in rpm
   motor1.setSpeed(v);
@@ -25,7 +25,7 @@ void Polargraph::speed(int v){
 }
 
 // Method for getting to a certain point in grid
-bool Polargraph::initPosition(float x0, float y0){
+bool Polargraph::initPosition(float x0, float y0) {
   // Bool variables to control position of pointer wrt target
   bool stopX = 0;
   bool stopY = 0;
@@ -40,7 +40,7 @@ bool Polargraph::initPosition(float x0, float y0){
 }
 
 // Method for horizontal displacement
-bool Polargraph::moveInX(float newX){
+bool Polargraph::moveInX(float newX) {
   // Bool variables to control x position of pointer wrt target
   bool stop = 0;
   // Warning in case desired position is out of Canvas
@@ -68,7 +68,7 @@ bool Polargraph::moveInX(float newX){
 }
 
 // Method for vertical displacement
-bool Polargraph::moveInY(float newY){
+bool Polargraph::moveInY(float newY) {
   // Bool variables to control y position of pointer wrt target
   bool stop = 0;
   // Warning in case desired position is out of Canvas
@@ -95,12 +95,29 @@ bool Polargraph::moveInY(float newY){
   }
 }
 
+bool square(float x, float y, float d) {
+  // Bool variables to control position of pointer wrt target
+  bool stop0, stop1, stop2, stop3, stop4;
+  if (stop0 == 0) {
+    stop0 = initPosition(x, y);
+  } else if (stop1 == 0) {
+    stop1 = moveInX(x + d);
+  } else if (stop1 == 0) {
+    stop2 = moveInY(y + d);
+  } else if (stop1 == 0) {
+    stop3 = moveInX(x);
+  } else if (stop1 == 0) {
+    stop4 = moveInY(y);
+  }
+  return stop4;
+}
+
 // Method for going back to default pointer position
-bool Polargraph::restPosition(){
+bool Polargraph::restPosition() {
   return initPosition(0.0, 0.0);
 }
 
 // Method for returning current position in the grid
-coordenates Polargraph::getPosition(){
+coordenates Polargraph::getPosition() {
   return position;
 }

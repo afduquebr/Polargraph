@@ -63,8 +63,16 @@ void loop() {
       // Means pointer reached desired position
       state += 1;
     }
-  }else if (state == 5) {
+  } else if (state == 5) {
     // Sixth Stage
+    // Draw a square of size 7.0
+    change = pointer.square(1.0, 4.0, 7.0);
+    if (change == 1) {
+      // Means pointer reached desired position
+      state += 1;
+    }
+  } else if (state == 6) {
+    // Seventh Stage
     // Move to default position (0.0,0.0)
     change = pointer.restPosition();
     if (change == 1) {
