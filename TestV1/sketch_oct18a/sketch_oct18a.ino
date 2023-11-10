@@ -13,8 +13,8 @@ void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
   Serial.println("Stepper test!");
 
-  motor1.setSpeed(10);  // 10 rpm   
-  motor2.setSpeed(10);  // 10 rpm   
+  motor1.setSpeed(5);  // 10 rpm   
+  motor2.setSpeed(5);  // 10 rpm   
 }
 
 void loop() {

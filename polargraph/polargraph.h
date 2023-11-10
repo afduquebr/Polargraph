@@ -39,8 +39,8 @@ static float width = 210.0;
 static float height = 297.0;
 
 // Initialization of the motors
-static AF_Stepper motor1(steps, 2);
-static AF_Stepper motor2(steps, 1);
+static AF_Stepper motor1(steps, 1);
+static AF_Stepper motor2(steps, 2);
 
 // Position of the pointer
 struct coordenates {

@@ -50,12 +50,12 @@ bool Polargraph::moveInX(float newX) {
   } else {
     if ((newX - position.x) > 0) {
       // Move in +X direction
-      motor2.step(1, FORWARD, SINGLE);
       motor1.step(1, FORWARD, SINGLE);
+      motor2.step(1, FORWARD, SINGLE);
     } else if ((newX - position.x) < 0) {
       // Move in -X direction
-      motor2.step(1, BACKWARD, SINGLE);
       motor1.step(1, BACKWARD, SINGLE);
+      motor2.step(1, BACKWARD, SINGLE);
     }
     // Redefine pointer position after step
     position.x += 2 * resolution * copysign(1.0, (newX - position.x));
@@ -78,12 +78,12 @@ bool Polargraph::moveInY(float newY) {
   } else {
     if ((newY - position.y) < 0) {
       // Move in -Y direction
-      motor1.step(1, FORWARD, SINGLE);
-      motor2.step(1, BACKWARD, SINGLE);
+      motor2.step(1, FORWARD, SINGLE);
+      motor1.step(1, BACKWARD, SINGLE);
     } else if ((newY - position.y) > 0) {
       // Move in +Y direction
-      motor1.step(1, BACKWARD, SINGLE);
-      motor2.step(1, FORWARD, SINGLE);
+      motor2.step(1, BACKWARD, SINGLE);
+      motor1.step(1, FORWARD, SINGLE);
     }
     // Redefine pointer position after step
     position.y += 2 * resolution * copysign(1.0, (newY - position.y));
@@ -97,11 +97,17 @@ bool Polargraph::moveInY(float newY) {
 
 bool Polargraph::square(float x, float y, float d) {
   // Bool variables to control position of pointer wrt target
-  bool stop0, stop1, stop2, stop3, stop4;
+  bool stop0 = 0;
+  bool stop1 = 0;
+  bool stop2 = 0;
+  bool stop3 = 0;
+  bool stop4 = 0;
   if (stop0 == 0) {
     stop0 = initPosition(x, y);
     Serial.println("stop0");
     Serial.println(stop0);
+    Serial.println(position.x);
+    Serial.println(position.y);
   } else if (stop1 == 0) {
     stop1 = moveInX(x + d);
     Serial.println("stop1");
