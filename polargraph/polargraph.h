@@ -32,15 +32,15 @@
 
 // Specs of the motors
 static int steps = 200;
-static float radius = 5;
+static float radius = 10;
 
 // Size of Canvas
 static float width = 210.0;
 static float height = 297.0;
 
 // Initialization of the motors
-static AF_Stepper motor1(steps, 1);
-static AF_Stepper motor2(steps, 2);
+static AF_Stepper motor1(steps, 2);
+static AF_Stepper motor2(steps, 1);
 
 // Position of the pointer
 struct coordenates {
@@ -70,7 +70,7 @@ class Polargraph {
     bool initPosition(float x0, float y0); // Go to an initial point in the grid
     bool moveInX(float newX); // Move to a position in horizontal direction
     bool moveInY(float newY); // Move to a position in vertical direction
-    bool square(float x, float y, float d) // Do a square of size d
+    bool square(float x, float y, float d); // Do a square of size d
     bool restPosition(); // Go to default start position
     coordenates getPosition(); // Return current position in the grid
   private:

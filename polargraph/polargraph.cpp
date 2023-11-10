@@ -95,19 +95,29 @@ bool Polargraph::moveInY(float newY) {
   }
 }
 
-bool square(float x, float y, float d) {
+bool Polargraph::square(float x, float y, float d) {
   // Bool variables to control position of pointer wrt target
   bool stop0, stop1, stop2, stop3, stop4;
   if (stop0 == 0) {
     stop0 = initPosition(x, y);
+    Serial.println("stop0");
+    Serial.println(stop0);
   } else if (stop1 == 0) {
     stop1 = moveInX(x + d);
-  } else if (stop1 == 0) {
+    Serial.println("stop1");
+    Serial.println(stop1);
+  } else if (stop2 == 0) {
     stop2 = moveInY(y + d);
-  } else if (stop1 == 0) {
+    Serial.println("stop2");
+    Serial.println(stop2);
+  } else if (stop3 == 0) {
     stop3 = moveInX(x);
-  } else if (stop1 == 0) {
+    Serial.println("stop3");
+    Serial.println(stop3);
+  } else if (stop4 == 0) {
     stop4 = moveInY(y);
+    Serial.println("stop4");
+    Serial.println(stop4);
   }
   return stop4;
 }

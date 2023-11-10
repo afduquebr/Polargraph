@@ -23,63 +23,71 @@ void loop() {
    *    Serial.println(pointer.position.y);
    *    Serial.println(" ");
    */
-  if (state == 0) {
-    // First Stage
-    // Go to initial Position (1.0,2.0)
-    change = pointer.initPosition(1.0, 2.0);
-    if (change == 1) {
-      // Means pointer reached init Position
-      state += 1;
-    }
-  } else if (state == 1) {
-    // Second Stage
-    // Move to 2.0 in X
-    change = pointer.moveInX(2.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 2) {
-    // Third Stage
-    // Move to 4.0 in Y
-    change = pointer.moveInY(4.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 3) {
-    // Fourth Stage
-    // Move to -1.0 in X
-    change = pointer.moveInX(-1.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 4) {
-    // Fifth Stage
-    // Move to 3.0 in Y
-    change = pointer.moveInY(3.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 5) {
+  if (state == 0) 
+  // {
+  //   // First Stage
+  //   // Go to initial Position (1.0,2.0)
+  //   change = pointer.initPosition(200.0, 200.0);
+  //   Serial.println(change);
+  //   if (change == 1) {
+  //     // Means pointer reached init Position
+  //     state += 1;
+  //   }
+  // } //else if (state == 1) 
+  // {
+  //   // Second Stage
+  //   // Move to 2.0 in X
+  //   change = pointer.moveInX(100.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 2) 
+  // {
+  //   // Third Stage
+  //   // Move to 4.0 in Y
+  //   change = pointer.moveInX(-200.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 3) 
+  // {
+  //   // Fourth Stage
+  //   // Move to -1.0 in X
+  //   change = pointer.moveInX(-1.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 4) 
+  // {
+  //   // Fifth Stage
+  //   // Move to 3.0 in Y
+  //   change = pointer.moveInY(3.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 5) 
+  {
     // Sixth Stage
     // Draw a square of size 7.0
-    change = pointer.square(1.0, 4.0, 7.0);
+    change = pointer.square(1.0, 1.0, 100.0);
     if (change == 1) {
       // Means pointer reached desired position
       state += 1;
     }
-  } else if (state == 6) {
-    // Seventh Stage
-    // Move to default position (0.0,0.0)
-    change = pointer.restPosition();
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-      //Final Stage achieved
-      Serial.println("Done!");
-    }
-  }
+  } //else if (state == 2) 
+  // {
+  //   // Seventh Stage
+  //   // Move to default position (0.0,0.0)
+  //   change = pointer.restPosition();
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //     //Final Stage achieved
+  //     Serial.println("Done!");
+  //   }
+  // }
 }
