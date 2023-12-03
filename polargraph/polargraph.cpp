@@ -1,5 +1,5 @@
 // Polargraph library
-// Last Update: November 12th, 2023.
+// Last Update: December 3rd, 2023.
 // Andrés Felipe Duque Bran
 
 
@@ -22,7 +22,9 @@ void Polargraph::speed(int v) {
   // v is set in rpm
   motor1.setSpeed(v);
   motor2.setSpeed(v);
-}
+  motor3.attach(10); // Pin to which it is connected
+  motor3.write(180); // TEMP!! 
+} 
 
 // Method for getting to a certain point in grid
 bool Polargraph::initPosition(float x0, float y0) {
@@ -93,15 +95,15 @@ bool Polargraph::moveInY(float newY) {
     } else {
       stop = 1;
     }
-    // Returns True when target position is reached
   }
+  // Returns True when target position is reached
   return stop;
 }
 
 // Method for drawing a square
 bool Polargraph::square(float x, float y, float d, int& state) {
   // Bool variables to control position of pointer wrt target
-  bool change, stop;
+  bool change = 0, stop = 0;
   if (state == 0) {
     // Get to right top of the square
     change = initPosition(x, y);
@@ -130,7 +132,19 @@ bool Polargraph::restPosition() {
   return initPosition(0.0, 0.0);
 }
 
+// Method for raising the pointer from the canvas
+void Polargraph::raiseServo() {
+  motor3.write(90);
+}
+
+// Method for lowering the pointer from the canvas
+void Polargraph::lowerServo() {
+  motor3.write(180);
+}
+
 // Method for returning current position in the grid
 coordenates Polargraph::getPosition() {
   return position;
 }
+
+

@@ -1,5 +1,5 @@
 // Polargraph library
-// Last Update: November 12th, 2023.
+// Last Update: December 3rd, 2023.
 // Andrés Felipe Duque Bran
 
 /*
@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include <Arduino.h>
 #include <AFMotor.h>
+#include <Servo.h>
+
 
 // Definition of technical properties of the machine
 // All measures are stated in mm
@@ -41,6 +43,7 @@ static float height = 297.0;
 // Initialization of the motors
 static AF_Stepper motor1(steps, 1);
 static AF_Stepper motor2(steps, 2);
+static Servo motor3;
 
 // Position of the pointer
 struct coordenates {
@@ -72,6 +75,8 @@ class Polargraph {
     bool moveInY(float newY); // Move to a position in vertical direction
     bool square(float x, float y, float d, int& state); // Do a square of size d
     bool restPosition(); // Go to default start position
+    void raiseServo(); // Raise pencil from the canvas
+    void lowerServo(); // Put pencil in drawing position
     coordenates getPosition(); // Return current position in the grid
   private:
     // Declaration of minimum step resolution for the pointer
