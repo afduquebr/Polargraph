@@ -1,5 +1,5 @@
 // Polargraph library
-// Last Update: December 3rd, 2023.
+// Last Update: December 14th, 2023.
 // Andrés Felipe Duque Bran
 
 /*
@@ -71,6 +71,7 @@ class Polargraph {
     // Methods associated to the pointer
     void speed(int v); // Set speed
     bool initPosition(float x0, float y0); // Go to an initial point in the grid
+    bool move(float newX, float newY, bool draw);
     bool moveInX(float newX); // Move to a position in horizontal direction
     bool moveInY(float newY); // Move to a position in vertical direction
     bool square(float x, float y, float d, int& state); // Do a square of size d
@@ -81,6 +82,8 @@ class Polargraph {
   private:
     // Declaration of minimum step resolution for the pointer
     float resolution;
+    float distance(float x1, float y1, float x2, float y2);
+    int minimum(float x, float y);
 };
 
 #endif

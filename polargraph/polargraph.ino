@@ -55,39 +55,39 @@ void loop() {
   {
     // Second Stage
     // Move to 100.0 in X
-    change = pointer.moveInY(0.0);
+    change = pointer.move(70.0, 60.0, true);
     if (change == 1) {
       // Means pointer reached desired position
       state += 1;
     }
-  } else if (state == 1) 
-  {
-    // Third Stage
-    // Move to 200.0 in Y
-    change = pointer.moveInX(20.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 2) 
-  {
-    // Fourth Stage
-    // Move to -50.0 in X
-    change = pointer.moveInY(20.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } else if (state == 3) 
-  {
-    // Fifth Stage
-    // Move to 50.0 in Y
-    change = pointer.moveInX(0.0);
-    if (change == 1) {
-      // Means pointer reached desired position
-      state += 1;
-    }
-  } //else if (state == 5) 
+  // } else if (state == 1) 
+  // {
+  //   // Third Stage
+  //   // Move to 200.0 in Y
+  //   change = pointer.moveInX(20.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 2) 
+  // {
+  //   // Fourth Stage
+  //   // Move to -50.0 in X
+  //   change = pointer.moveInY(20.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } else if (state == 3) 
+  // {
+  //   // Fifth Stage
+  //   // Move to 50.0 in Y
+  //   change = pointer.moveInX(0.0);
+  //   if (change == 1) {
+  //     // Means pointer reached desired position
+  //     state += 1;
+  //   }
+  // } //else if (state == 5) 
   // {
   //   // Sixth Stage
   //   // Draw a square of size 50.0
