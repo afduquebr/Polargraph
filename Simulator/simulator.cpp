@@ -1,5 +1,5 @@
 // Polargraph Simulation library
-// Last Update: November 12th, 2023.
+// Last Update: December 14th, 2023.
 // Andrés Felipe Duque Bran
 
 
@@ -135,3 +135,62 @@ bool Polargraph::restPosition() {
 coordenates Polargraph::getPosition() {
   return position;
 }
+
+bool Polargraph::move(float newX, float newY, bool draw) {
+  // Bool variable to control position of pointer wrt target
+  bool stop = 0;
+  // Warning in case desired position is out of Canvas
+  if ( (newX < - (width / 2)) && ((width / 2) < newX) && (newY < 0.0) && (height < newY) )  {
+    cout << " FATAL ERROR: Pointer position outside of Canvas\n";
+    stop = 1;
+  } else {
+    if (abs(newX - position.x) + abs(newY - position.y) > resolution) {
+      int min = minimum(newX, newY);
+      if (min == 0) {
+        position.x -= resolution;
+        position.y -= resolution;
+      } else if (min == 1) {
+        position.x += resolution;
+        position.y -= resolution;
+      } else if (min == 2) {
+        position.x += resolution;
+        position.y += resolution;
+      } else if (min == 3) {
+        position.x -= resolution;
+        position.y += resolution;
+      } 
+      stop = 0;
+    } else {
+      stop = 1;
+    }
+  }
+  return stop;
+}
+
+float Polargraph::distance(float x1, float y1, float x2, float y2) {
+  return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+int Polargraph::minimum(float x, float y) {
+  float dist[4] = {
+    Polargraph::distance(position.x - resolution, position.y - resolution, x, y),
+    Polargraph::distance(position.x + resolution, position.y - resolution, x, y),
+    Polargraph::distance(position.x + resolution, position.y + resolution, x, y),
+    Polargraph::distance(position.x - resolution, position.y + resolution, x, y),
+  };
+  int min = 0;
+  if (dist[min] > dist[1]) {
+    min = 1;
+  }
+  if (dist[min] > dist[2]) {
+    min = 2;
+  }
+  if (dist[min] > dist[3]) {
+    min = 3;
+  }
+  cout << "min = " << min << endl;
+  return min;
+}
+
+
+
