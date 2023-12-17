@@ -23,7 +23,6 @@ void Polargraph::speed(int v) {
   motor1.setSpeed(v);
   motor2.setSpeed(v);
   motor3.attach(10); // Pin to which it is connected
-  motor3.write(180); // TEMP!! 
 } 
 
 // Method for getting to a certain point in grid
@@ -101,28 +100,31 @@ bool Polargraph::moveInY(float newY) {
 }
 
 // Method for drawing a square
-bool Polargraph::square(float x, float y, float d, int& state) {
+bool Polargraph::square(float x, float y, float d) {
   // Bool variables to control position of pointer wrt target
   bool change = 0, stop = 0;
-  if (state == 0) {
+  if (st_square == 0) {
     // Get to right top of the square
     change = initPosition(x, y);
-    if (change == 1) state += 1;
-  } else if (state == 1) {
+    if (change == 1) st_square += 1;
+  } else if (st_square == 1) {
     // Draw upper horizontal line
     change = moveInX(x + d);
-    if (change == 1) state += 1;
-  } else if (state == 2) {
+    if (change == 1) st_square += 1;
+  } else if (st_square == 2) {
     // Draw right vertical line
     change = moveInY(y + d);
-    if (change == 1) state += 1;
-  } else if (state == 3) {
+    if (change == 1) st_square += 1;
+  } else if (st_square == 3) {
     // Draw lower horizontal line
     change = moveInX(x);
-    if (change == 1) state += 1;
+    if (change == 1) st_square += 1;
   } else {
     // Draw left vertical line
     stop = moveInY(y);
+    if (stop == 1) {
+      st_square = 0;
+    }
   }
   return stop;
 }
@@ -155,7 +157,7 @@ bool Polargraph::move(float newX, float newY, bool draw){
     Serial.println(" FATAL ERROR: Pointer position outside of Canvas");
     stop = 1;
   } else {
-    if (abs(newX - position.x) + abs(newY - position.y) >= resolution) {
+    if (abs(newX - position.x) + abs(newY - position.y) >= limit) {
       if (draw == 1) lowerServo();
       int min = minimum(newX, newY);
       if (min == 0) {
@@ -178,29 +180,73 @@ bool Polargraph::move(float newX, float newY, bool draw){
       stop = 0;
     } else {
       raiseServo();
+      fit = 1;
       stop = 1;
     }
   }
   return stop;
 }
 
-float Polargraph::distance(float x1, float y1, float x2, float y2){
+void Polargraph::linearFit(float x, float y){
+  if (abs(y - position.y) <= abs(x - position.x)) {
+    fit_parameters[0] = (y - position.y) / (x - position.x);
+    fit_parameters[1] = y - fit_parameters[0] * x;
+    fit_parameters[2] = 0;
+  } else {
+    fit_parameters[0] = (x - position.x) / (y - position.y);
+    fit_parameters[1] = x - fit_parameters[0] * y;
+    fit_parameters[2] = 1;
+  }
+}
+
+float Polargraph::distance(float x1, float y1, float x2, float y2) {
   return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-int Polargraph::minimum(float x, float y){
+int Polargraph::minimum(float x, float y) {
+  float diagonal[4];
+  if (fit == 1) {
+    linearFit(x, y);
+    fit = 0;
+  }
+  if (fit_parameters[2] == 0) {
+    diagonal[0] = distance(0, position.y - resolution, 0, fit_parameters[0] * (position.x - resolution) + fit_parameters[1]);
+    diagonal[1] = distance(0, position.y - resolution, 0, fit_parameters[0] * (position.x + resolution) + fit_parameters[1]);
+    diagonal[2] = distance(0, position.y + resolution, 0, fit_parameters[0] * (position.x + resolution) + fit_parameters[1]);
+    diagonal[3] = distance(0, position.y + resolution, 0, fit_parameters[0] * (position.x - resolution) + fit_parameters[1]);
+  } else {
+    diagonal[0] = distance(position.x - resolution, 0, fit_parameters[0] * (position.y - resolution) + fit_parameters[1], 0);
+    diagonal[1] = distance(position.x + resolution, 0, fit_parameters[0] * (position.y - resolution) + fit_parameters[1], 0);
+    diagonal[2] = distance(position.x + resolution, 0, fit_parameters[0] * (position.y + resolution) + fit_parameters[1], 0);
+    diagonal[3] = distance(position.x - resolution, 0, fit_parameters[0] * (position.y + resolution) + fit_parameters[1], 0);
+  }
   float dist[4] = {
-    Polargraph::distance(position.x - resolution, position.y - resolution, x, y),
-    Polargraph::distance(position.x + resolution, position.y - resolution, x, y),
-    Polargraph::distance(position.x + resolution, position.y + resolution, x, y),
-    Polargraph::distance(position.x - resolution, position.y + resolution, x, y),
+    distance(position.x - resolution, position.y - resolution, x, y),
+    distance(position.x + resolution, position.y - resolution, x, y),
+    distance(position.x + resolution, position.y + resolution, x, y),
+    distance(position.x - resolution, position.y + resolution, x, y),
   };
-  int min = 0;
-  if (dist[min] > dist[1]) min = 1;
-  if (dist[min] > dist[2]) min = 2;
-  if (dist[min] > dist[3]) min = 3;
+  int min = 0, min1 = 0, min2 = 1;
+  if (dist[min1] > dist[1]) {
+    min2 = min1;
+    min1 = 1;
+  }
+  if (dist[min1] > dist[2]) {
+    min2 = min1;
+    min1 = 2; 
+  } else if (dist[min2] > dist[2]) {
+    min2 = 2;
+  }
+  if (dist[min1] > dist[3]) {
+    min2 = min1;
+    min1 = 3;
+  } else if (dist[min2] > dist[3]) {
+    min2 = 3;
+  }
+  if(diagonal[min1] < diagonal[min2]) {
+    min = min1;
+  } else {
+    min = min2;
+  }
   return min;
 }
-
-
-

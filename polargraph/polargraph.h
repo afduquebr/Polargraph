@@ -34,7 +34,7 @@
 
 // Specs of the motors
 static int steps = 200;
-static float radius = 5;
+static float radius = 7.5; // Adjust to real radius
 
 // Size of Canvas
 static float width = 210.0;
@@ -74,7 +74,7 @@ class Polargraph {
     bool move(float newX, float newY, bool draw);
     bool moveInX(float newX); // Move to a position in horizontal direction
     bool moveInY(float newY); // Move to a position in vertical direction
-    bool square(float x, float y, float d, int& state); // Do a square of size d
+    bool square(float x, float y, float d); // Do a square of size d
     bool restPosition(); // Go to default start position
     void raiseServo(); // Raise pencil from the canvas
     void lowerServo(); // Put pencil in drawing position
@@ -82,6 +82,11 @@ class Polargraph {
   private:
     // Declaration of minimum step resolution for the pointer
     float resolution;
+    float limit = 0.253456;
+    bool fit = 1;
+    int st_square = 0;
+    float fit_parameters[3];
+    void linearFit(float x, float y);
     float distance(float x1, float y1, float x2, float y2);
     int minimum(float x, float y);
 };
