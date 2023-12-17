@@ -77,6 +77,10 @@ class Polargraph {
   private:
     // Declaration of minimum step resolution for the pointer
     float resolution;
+    float limit = 0.253456;
+    bool fit = 1;
+    float fit_parameters[3];
+    void linearFit(float x, float y);
     float distance(float x1, float y1, float x2, float y2);
     int minimum(float x, float y);
 };
