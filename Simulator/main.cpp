@@ -50,7 +50,7 @@ int main() {
   cout << "We move to a certain position! \n";
 
   while (state == 0) {
-    change = pointer.move(0.0, 50.0, true);
+    change = pointer.move(-50.0, 50.0, true);
     if (change == 1) {
       state += 1;
     } 

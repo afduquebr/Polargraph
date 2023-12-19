@@ -186,13 +186,9 @@ float Polargraph::distance(float x1, float y1, float x2, float y2) {
 
 int Polargraph::minimum(float x, float y) {
   float diagonal[4];
-  cout << "fit = " << fit << endl;
   if (fit == 1) {
     linearFit(x, y);
     fit = 0;
-    cout << "fit_parameters[0] = " << fit_parameters[0] << endl;
-    cout << "fit_parameters[1] = " << fit_parameters[1] << endl;
-    cout << "fit_parameters[2] = " << fit_parameters[2] << endl;
   }
   if (fit_parameters[2] == 0) {
     diagonal[0] = distance(0, position.y - resolution, 0, fit_parameters[0] * (position.x - resolution) + fit_parameters[1]);
@@ -233,16 +229,16 @@ int Polargraph::minimum(float x, float y) {
   } else {
     min = min2;
   }
-  cout << "min = " << min << endl;
-  cout << "min1 = " << min1 << endl;
-  cout << "min2 = " << min2 << endl;
-  cout << "dist[0] = " << dist[0] << endl;
-  cout << "dist[1] = " << dist[1] << endl;
-  cout << "dist[2] = " << dist[2] << endl;
-  cout << "dist[3] = " << dist[3] << endl;
-  cout << "fit_parameters[2] = " << fit_parameters[2] << endl;
-  cout << "diagonal[min1] = " << diagonal[min1] << endl;
-  cout << "diagonal[min2] = " << diagonal[min2] << endl;
+  // cout << "min = " << min << endl;
+  // cout << "min1 = " << min1 << endl;
+  // cout << "min2 = " << min2 << endl;
+  // cout << "dist[0] = " << dist[0] << endl;
+  // cout << "dist[1] = " << dist[1] << endl;
+  // cout << "dist[2] = " << dist[2] << endl;
+  // cout << "dist[3] = " << dist[3] << endl;
+  // cout << "fit_parameters[2] = " << fit_parameters[2] << endl;
+  // cout << "diagonal[min1] = " << diagonal[min1] << endl;
+  // cout << "diagonal[min2] = " << diagonal[min2] << endl;
   return min;
 }
 
