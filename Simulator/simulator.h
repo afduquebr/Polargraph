@@ -71,13 +71,14 @@ class Polargraph {
     bool move(float newX, float newY, bool draw);
     bool moveInX(float newX); // Move to a position in horizontal direction
     bool moveInY(float newY); // Move to a position in vertical direction
-    bool square(float x, float y, float d, int& state); // Do a square of size d
+    bool square(float x, float y, float d); // Do a square of size d
     bool restPosition(); // Go to default start position
     coordenates getPosition(); // Return current position in the grid
   private:
     // Declaration of minimum step resolution for the pointer
     float resolution;
     float limit = 0.253456;
+    int sq_state = 0;
     bool fit = 1;
     float fit_parameters[3];
     void linearFit(float x, float y);

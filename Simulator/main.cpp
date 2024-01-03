@@ -12,49 +12,79 @@ bool change = 0; // True if state must change
 Polargraph pointer(init_x, init_y);
 
 int main() {
-  cout << "Hola, mundo!" << endl;
+  // cout << "Hola, mundo!" << endl;
 
-  cout << "x: " << pointer.position.x << " y: " << pointer.position.y << "\n";  
+  float radius =  40.0;
+  float displacement = 80.0;
 
   // cout << "Go to initial position! \n";
 
-  // while (state == 0) {
-  //   cout << "x: " << pointer.position.x << " y: " << pointer.position.y << "\n";  
-  //   change = pointer.initPosition(0.0, 0.0);
-  //   if (change == 1) {
-  //     state += 1;
-  //   } 
-  // }
-
-  // cout << "Now we do a square! \n";
-  
-  // int sq_state = 0;
-  // while (state == 1) {
-  //   change = pointer.square(0.0, 0.0, 70.0, sq_state);
-  //   if (change == 1) {
-  //     state += 1;
-  //   } 
-  //   cout << "x: " << pointer.position.x << " y: " << pointer.position.y << "\n";  
-  // }
-
-  // cout << "We go back to rest position! \n";
-
-  // while (state == 2) {
-  //   change = pointer.restPosition();
-  //   if (change == 1) {
-  //     state += 1;
-  //   } 
-  //   cout << "x: " << pointer.position.x << " y: " << pointer.position.y << "\n";  
-  // }
-
-  cout << "We move to a certain position! \n";
-
-  while (state == 0) {
-    change = pointer.move(-50.0, 50.0, true);
+  while (state == 0) { 
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.initPosition(radius * cos(9 * M_PI / 10), -radius * sin(21 * M_PI / 10) + displacement);
     if (change == 1) {
       state += 1;
     } 
-    cout << "x: " << pointer.position.x << " y: " << pointer.position.y << "\n";  
+  }
+
+  // cout << "We move to first vertex! \n";
+
+  while (state == 1) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.move(radius * cos(21 * M_PI / 10), -radius * sin(21 * M_PI / 10) + displacement, true);
+    if (change == 1) {
+      state += 1;
+    } 
+  }
+
+  // cout << "We move to second vertex! \n";
+
+  while (state == 2) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.move(radius * cos(13 * M_PI / 10), -radius * sin(13 * M_PI / 10) + displacement, true);
+    if (change == 1) {
+      state += 1;
+    } 
+  }
+
+  // cout << "We move to third vertex! \n";
+
+  while (state == 3) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.move(radius * cos(M_PI / 2), -radius * sin(M_PI / 2) + displacement, true);
+    if (change == 1) {
+      state += 1;
+    } 
+  }
+
+  // cout << "We move to fourth vertex! \n";
+
+  while (state == 4) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.move(radius * cos(17 * M_PI / 10), -radius * sin(17 * M_PI / 10) + displacement, true);
+    if (change == 1) {
+      state += 1;
+    } 
+  }
+
+  // cout << "We move to fifth vertex! \n";
+
+  while (state == 5) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.move(radius * cos(9 * M_PI / 10), -radius * sin(21 * M_PI / 10) + displacement, true);
+    if (change == 1) {
+      state += 1;
+    } 
+  }
+
+  // cout << "We go back to rest position! \n";
+
+  while (state == 6) {
+    cout << pointer.position.x << " " << pointer.position.y << "\n";  
+    change = pointer.restPosition();
+    if (change == 1) {
+      state += 1;
+    } 
   }
 
   return 0;

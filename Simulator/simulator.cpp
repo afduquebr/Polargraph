@@ -15,7 +15,6 @@ Polargraph::Polargraph(float a, float b) {
   position.y = b;
   // Determination of resolution
   resolution = sqrt(2) * radius * M_PI /100;
-  cout << "Resolution: " << resolution << endl;
 }
 
 // Set speed for the displacement
@@ -100,28 +99,29 @@ bool Polargraph::moveInY(float newY) {
   return stop;
 }
 
-bool Polargraph::square(float x, float y, float d, int& state) {
+bool Polargraph::square(float x, float y, float d) {
   // Bool variables to control position of pointer wrt target
   bool change, stop;
-  if (state == 0) {
+  if (sq_state == 0) {
     // Get to right top of the square
     change = initPosition(x, y);
-    if (change == 1) state += 1;
-  } else if (state == 1) {
+    if (change == 1) sq_state += 1;
+  } else if (sq_state == 1) {
     // Draw upper horizontal line
     change = moveInX(x + d);
-    if (change == 1) state += 1;
-  } else if (state == 2) {
+    if (change == 1) sq_state += 1;
+  } else if (sq_state == 2) {
     // Draw right vertical line
     change = moveInY(y + d);
-    if (change == 1) state += 1;
-  } else if (state == 3) {
+    if (change == 1) sq_state += 1;
+  } else if (sq_state == 3) {
     // Draw lower horizontal line
     change = moveInX(x);
-    if (change == 1) state += 1;
+    if (change == 1) sq_state += 1;
   } else {
     // Draw left vertical line
     stop = moveInY(y);
+    sq_state = 0;
   }
   return stop;
 }
