@@ -1,4 +1,4 @@
-#include "Polargraph.h"
+#include <Polargraph.h>
 
 float init_x = 0.0; // Define initial position in x
 float init_y = 0.0; // Define initial position in y

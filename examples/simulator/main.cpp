@@ -1,5 +1,5 @@
 #include <iostream>
-#include "simulator.h"
+#include "../../simulator/simulator.h"
 using namespace std;
 
 float init_x = 0.0; // Define init position in x

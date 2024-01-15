@@ -3,7 +3,7 @@
 // Andrés Felipe Duque Bran
 
 
-#include "Polargraph.h"
+#include "polargraph.h"
 
 using namespace std;
 

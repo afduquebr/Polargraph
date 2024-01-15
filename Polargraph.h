@@ -13,8 +13,9 @@
  *    technical design of the device.
  *
  * 3) This library controls the stepper motors by employing the "Adafruit Motor
- *    shield library". Therefore, its installation is compulsory in order to use
- *    it.
+ *    shield library" as well as for controlling the servo motor it employs the 
+ *    "Servo library". Therefore, their installation is compulsory in order to 
+ *    use it.
  *
  */
 
