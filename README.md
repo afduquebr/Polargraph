@@ -48,4 +48,4 @@ Additionally, a simulator is provided to monitore the expected position that the
 
 ***
 
-*This work was developped as a project for the lecture* **_Experimental Project_** *given in the programme of Master 2 Fundamental Physics and Applications in the path of Universe and Particles at the* **_Université Clermont Auvergne_** *. Its development was performed under the guidance of the professor Calvet, Samuel.*
+*This work was developped as a project for the lecture* **_Experimental Project_** *given in the programme of Master 2 Fundamental Physics and Applications in the path of Universe and Particles at the* **_Université Clermont Auvergne_** *. Its development was performed under the guidance of the professor Calvet, David.*
