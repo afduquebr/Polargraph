@@ -14,7 +14,7 @@
 
 ### Description
 
-This repository contains a library with a class that allows to control a pointer through the [Arduino Software (IDE)](https://www.arduino.cc/en/software), and emplyoing a setup that consists of two unipolar stepper motors and a servo motor for determining the distance between the drawing artefact and the canvas. However, the description of this setup is not a matter of importance for this code.
+This repository contains a library with a class that allows to control a pointer through the [Arduino Software (IDE)](https://www.arduino.cc/en/software), and employing a setup that consists of two unipolar stepper motors and a servo motor for determining the distance between the drawing artefact and the canvas. However, the description of this setup is not a matter of importance for this code.
 
 ***
 
@@ -42,9 +42,9 @@ In order to properly install this library, it is compulsory to clone this reposi
 
 ### Execution
 
-One of the perks of a polargraph is its adaptavility to canvas with different sizes. Based on this, the length and with of the canvas have to be manually set in the file ```Polargraph.h```. Similarly, due to the differences that may arise on the specifications of the mechanical design, the number of steps per revolution from the stepper motors employed and the radius of the strings or belts employed with respect to the axis of the tree from each motor must be specified in the same file before execution ```Polargraph.h```. 
+One of the perks of a polargraph is its adaptability to canvas with different sizes. Based on this, the length and width of the canvas have to be manually set in the file ```Polargraph.h```. Similarly, due to the differences that may arise on the specifications of the mechanical design, the number of steps per revolution from the stepper motors employed and the radius of the strings or belts employed with respect to the axis of the tree from each motor must be specified in the same file before execution ```Polargraph.h```. 
 
-Additionally, a simulator is provided to monitore the expected position that the pointer should follow through the canvas, it is located inside the ```Simulator``` directory. This file is developped in C++ as it is intented to be employed without the need of an Arduino platform. Examples are also provided for proper illustration.
+Additionally, a simulator is provided to monitor the expected position that the pointer should follow through the canvas, it is located inside the ```Simulator``` directory. This file is developped in C++ as it is intented to be employed without the need of an Arduino platform. Examples are also provided for proper illustration.
 
 ***
 
